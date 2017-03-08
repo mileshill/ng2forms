@@ -1,0 +1,50 @@
+<md-card>
+  <md-card-title>
+    User Form
+  </md-card-title>
+  <md-card-content>
+    <form novalidate [formGroup]="user" (ngSubmit)="onSubmit(user)">
+      <!--Name-->
+      <md-input-container>
+        <input mdInput type="text" placeholder="first last" formControlName="name">
+        
+        <div class="error" *ngIf="user.get('name').hasError('required') && user.get('name').touched">
+          Name is required
+        </div>
+
+        <div class="error" *ngIf="user.get('name').hasError('minlength') && user.get('name').touched">
+          Minimum of 2 characters
+        </div>
+      </md-input-container>
+
+      <!--Email-->
+      <div formGroupName="account">
+      
+        <md-input-container>
+            <input mdInput type="email" placeholder="Your email address" formControlName="email">
+        </md-input-container>
+        
+        <div class="error" *ngIf="user.get('account').get('email').hasError('required') && user.get('account').get('email').touched">
+          Email is required
+        </div>
+
+        <div class="error" *ngIf="user.get('account').get('email').hasError('pattern') && user.get('account').get('email').touched">
+          Invalid email
+        </div>
+
+
+        <md-input-container>  
+          <input mdInput type="email" placeholder="confirm email" formControlName="confirm">
+        </md-input-container>
+
+        <div class="error" *ngIf="user.get('account').get('confirm').hasError('required') && user.get('account').get('confirm').touched">
+          Email is required
+        </div>
+
+
+      </div>
+      <button md-raised-button type="submit" color="primary">Submit</button>
+    </form>
+    <!--./form-->
+  </md-card-content>
+</md-card>
